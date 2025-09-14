@@ -1,0 +1,17 @@
+[project]
+name = "fastaudiomerge"
+version = "0.1.0"
+description = "Concatenate multiple audio files into a single audio file using FFmpeg"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "ffmpeg-python>=0.2.0",
+    "pyqt5>=5.15.11",
+    "pyqtdarktheme>=2.1.0",
+]
+
+[project.scripts]
+fastaudiomerge = "src.application:main"
+
+[tool.uv]
+package = true
