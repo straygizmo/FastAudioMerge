@@ -301,8 +301,7 @@ class AudioFileDropWidget(QWidget):
         self.audio_files.clear()
 
     def add_files_dialog(self):
-        options = QFileDialog.Option()
-        options |= QFileDialog.Option.ReadOnly
+        options = QFileDialog.Option.ReadOnly
         file_dialog = QFileDialog()
         file_dialog.setFileMode(QFileDialog.FileMode.ExistingFiles)
         file_dialog.setNameFilter("Audio Files (*.mp3 *.aac *.m4a *.wav *.flac *.ogg *.ac3 *.wma *.aiff "

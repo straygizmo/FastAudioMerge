@@ -20,7 +20,7 @@ ffprobe.exe
 *.aiff
 *.mka
 *.mp2
-
+audio
 
 # C extensions
 *.so
