@@ -7,8 +7,9 @@ from datetime import datetime
 
 import qdarktheme
 
-from PyQt5.QtGui import QStandardItemModel, QStandardItem, QFontDatabase
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QListView, QPushButton, QTextEdit, \
+from PyQt6.QtGui import QStandardItemModel, QStandardItem, QFontDatabase
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QListView, QPushButton, QTextEdit, \
     QComboBox, QAbstractItemView, QHBoxLayout, QFileDialog, QLineEdit, QSizePolicy
 from thread_merge import AudioMergeThread
 
@@ -80,8 +81,8 @@ class AudioFileDropWidget(QWidget):
 
         self.list_view.setFixedHeight(200)
         self.list_view.setSpacing(0)
-        self.list_view.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.list_view.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.list_view.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.list_view.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
         list_view_layout.addWidget(self.list_view)
 
         # Create a QVBoxLayout for the control buttons
@@ -100,7 +101,7 @@ class AudioFileDropWidget(QWidget):
 
         for button in [self.remove_button, self.remove_all_button, self.add_files_button,
                        self.move_up_button, self.move_down_button]:
-            button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+            button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
             button.setStyleSheet("""
                 QPushButton {
                     font-weight: bold;
@@ -232,7 +233,7 @@ class AudioFileDropWidget(QWidget):
                                          "font: Cascadia Mono;"
                                          "color: green;"
                                          "background-color: black;}")
-        if font not in QFontDatabase().families():
+        if font not in QFontDatabase.families():
             self.ffmpeg_output.setStyleSheet("QTextEdit{"
                                              "font: Monospace;"
                                              "color: green;"
@@ -243,7 +244,7 @@ class AudioFileDropWidget(QWidget):
                                          "font: Cascadia Mono;"
                                          "color: red;"
                                          "background-color: black;}")
-        if "Cascadia Mono" not in QFontDatabase().families():
+        if "Cascadia Mono" not in QFontDatabase.families():
             self.ffmpeg_output.setStyleSheet("QTextEdit{"
                                              "font: Monospace;"
                                              "color: red;"
@@ -300,10 +301,10 @@ class AudioFileDropWidget(QWidget):
         self.audio_files.clear()
 
     def add_files_dialog(self):
-        options = QFileDialog.Options()
-        options |= QFileDialog.ReadOnly
+        options = QFileDialog.Option()
+        options |= QFileDialog.Option.ReadOnly
         file_dialog = QFileDialog()
-        file_dialog.setFileMode(QFileDialog.ExistingFiles)
+        file_dialog.setFileMode(QFileDialog.FileMode.ExistingFiles)
         file_dialog.setNameFilter("Audio Files (*.mp3 *.aac *.m4a *.wav *.flac *.ogg *.ac3 *.wma *.aiff "
                                   "*.mka *.mp2);;All Files (*)")
         audio_files, _ = file_dialog.getOpenFileNames(self, "Select Audio Files", "",
@@ -439,7 +440,7 @@ def main():
     qdarktheme.setup_theme("auto")
     window = AudioFileDropApp()
     window.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 
 
 if __name__ == '__main__':
